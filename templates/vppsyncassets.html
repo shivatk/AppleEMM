@@ -1,0 +1,41 @@
+{% extends "vpp.html" %}
+
+{% block subdesp %}
+
+<br />
+{% if SyncAssets %}
+<table id="resulttable">
+  <tr>
+    <th>Application Name</th>
+    <th>Total Licenses</th>
+    <th>Redeemed Licenses</th>
+    <th>Available Licenses</th>
+  </tr>
+{% for r in SyncAssets %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[3] }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% if assignedApps %}
+<table id="resulttable">
+  <tr>
+    <th>Assigned Apps</th>
+  </tr>
+{% for r in assignedApps %}
+    <tr>
+      <td>{{ r[0] }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}
+
+{% block return %}
+<a href="/vpp">Return</a>
+{% endblock %}

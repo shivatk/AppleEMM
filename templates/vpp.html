@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+Volume Purchase Program
+{% endblock %}
+
+{% block description %}
+<p class="description">In iOS 7 and later or macOS v10.9 and later, Volume Purchase Program (VPP) App Assignment allows an organization to assign apps to users. At a later date, if a user no longer needs an app, you can reclaim the app license and assign it to a different user. In iOS 9 and later or macOS v10.11 and later, VPP can assign a license to the device serial number, so no Apple ID is required to download the app.</p>
+{% endblock %}
+
+{% block subdesp %}
+<div>
+</div>
+  <div class="ps">
+<form action = "" method="post">
+  <h5 class="text2"><b>Insert sToken String to retrieve all associated apps and license information</b></h5>
+  <input class="inpt" type="text" name="sToken" size="40">
+  {% with messages = get_flashed_messages() %}
+    {% if 'Null sToken' in messages %}
+      <p class = "err" >Please enter a valid string</p>
+    {% endif %}
+  {% endwith %}
+  {% with messages = get_flashed_messages() %}
+    {% if 'LoginFailed' in messages %}
+      <p class = "err" >Login Failed. sToken either invalid or expired. Please download a new token and try again.</p>
+    {% endif %}
+  {% endwith %}
+
+<h5 class="text2">OPTIONAL - Enter a Serial Number to pull all apps assigned to it</h4>
+  <input class="inpt" type="text" name="SerialNumber" size="40">
+
+ <br /><br /> <br />
+  <button class="subbuttn" type="submit" name="submit" value="submit"> Get Data </button>
+  {% with messages = get_flashed_messages() %}
+    {% if 'NoAppsAssigned' in messages %}
+      <p class = "err" >There are no applications assigned to this device.</p>
+    {% endif %}
+  {% endwith %}
+
+</form>
+</div>
+
+<p class="ps"><h4 class="ps"> Need to revoke licenses? Click <a href="/revoke">here</a></h4></p>
+{% endblock %}

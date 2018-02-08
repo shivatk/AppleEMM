@@ -1,0 +1,13 @@
+{% extends "vpp.html" %}
+
+{% block description %}
+{% if file %}
+Operation completed. <a href='/download/{{file}}'>Download log file</a> for details.
+{% else %}
+Operation Failed
+{% endif %}
+
+{% endblock %}
+
+{% block subdesp %}
+{% endblock %}
