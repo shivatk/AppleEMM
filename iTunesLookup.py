@@ -5,7 +5,7 @@ import psycopg2
 def getAppName(adamId):
     hostname = 'localhost'
     username = 'shivatk'
-    password = '8989'
+    password = '****'
     database = 'FirstDriver'
     con = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
     cur = con.cursor()
