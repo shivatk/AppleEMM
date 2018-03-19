@@ -5,15 +5,48 @@ Device Enrollment Program
 {% endblock %}
 
 {% block description %}
-<p class="description">In iOS 7 and later and macOS v10.9 and later, the Device Enrollment Program (DEP) helps to address the mass configuration needs of organizations purchasing and deploying devices in large quantities, without the need for factory customization or pre-configuration of devices prior to deployment.</p>
 
-<p class="description">A device enrolled in the Device Enrollment Program prompts the user to enroll in MDM during the initial device setup process. Additionally, devices enrolled in the program can be supervised over the air. Although Apple’s servers store information about the device’s participation in this program, the MDM profile and login challenge are served by the organization’s server.</p>
-
-<p class="description">The cloud service API provides profile management and mapping. With this API, you can obtain a list of devices, obtain information about those devices, and associate MDM enrollment profiles with those devices.</p>
-
+<p class="description">The DEP cloud service API provides profile management and mapping. With this API, you can obtain a list of device and obtain information about those devices.
+  Grab the DEP OAuth token details from the MDM server. Optionally, specify the serial number of a device
+to obtain its status with DEP.</p>
+<p class="description">Information on this API <a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/MobileDeviceManagementProtocolRef/4-Profile_Management/ProfileManagement.html#//apple_ref/doc/uid/TP40017387-CH7-SW1">here.</a> </p>
 
 {% endblock %}
 
 {% block subdesp %}
-<p class="comingsoon"><b>APIs COMING SOON</b></p>
+<div>
+</div>
+  <div class="ps">
+<form action = "/dep" method="post">
+  <h5 class="text2"><b>Insert DEP Token information</b></h5>
+  <input class="inpt" type="text" name="CK" size="50" placeholder=" Consumer Key: CK_.."> <br /> <br />
+  <input class="inpt" type="text" name="CS" size="50" placeholder=" Consumer Secret: CS_.."><br /> <br />
+  <input class="inpt" type="text" name="T" size="50" placeholder=" Token: AT_.."> <br /> <br />
+  <input class="inpt" type="text" name="TS" size="50" placeholder=" Token Secret: AS_.."> <br /> <br />
+
+  {% with messages = get_flashed_messages() %}
+    {% if 'invalid' in messages %}
+      <p class = "err" >Invalid token. Please check input.</p>
+    {% endif %}
+    {% if 'expired' in messages %}
+      <p class = "err" >Token expired. Please renew the DEP token.</p>
+    {% endif %}
+    {% if 'notcomplete' in messages %}
+      <p class = "err" >Please input all details.</p>
+    {% endif %}
+  {% endwith %}
+
+<h5 class="text2">OPTIONAL - Enter a Serial Number to get its profile assignment status</h5>
+  <input class="inpt" type="text" name="SerialNumber" size="40">
+
+ <br /><br /> <br />
+  <button class="subbuttn" type="submit" name="submit" value="submit"> Get Data </button>
+  {% with messages = get_flashed_messages() %}
+    {% if 'nodevice' in messages %}
+      <p class = "err" >This device is not tied to the account.</p>
+    {% endif %}
+  {% endwith %}
+
+</form>
+</div>
 {% endblock %}

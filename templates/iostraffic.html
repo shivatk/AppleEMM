@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+Capturing device traffic
+{% endblock %}
+
+{% block description %}
+<p class="description">There are two approaches to analyzing an iOS device's network traffic.
+The first approach is called <b>Eavesdropping</b> or <b>Sniffing</b> where we <i>listen</i> on the device's network interface
+to look at incoming and outgoing packets. Using this approach, all packets like TCP, SSL/TLS, ARP, DNS etc.. can be captured by using tcpdump.</p>
+<p class="description">The second approach is called a '<b>Man In The Middle</b>' attack where we setup an
+outbound proxy for the device. This proxy will have Charles, Fiddler or another tool
+installed to inspect traffic traversing through it. This method will, however, only allow us to inspect HTTP/HTTPS traffic.</p>
+ <hr>
+{% endblock %}
+
+{% block subdesp %}
+<p class="optns"> <b>tcpdump</b></p>
+<p class="description">You would need a Mac to plug the iOS device to and create a virtual interface using <b>rvictl</b>.
+Then <b>tcpdump</b> can be used to save packets traversing through that interface.</p>
+<p class="description"><b>1.</b> Using a lightning cable, connect the iOS device to the Mac via the USB port. </p>
+<p class="description"><b>2.</b> Accept the prompt for trusting the Mac on the device. </p>
+<p style="text-align:center;"><img src="../static/truster.jpg"></p>
+<p class="description"><b>3.</b> Launch terminal on the Mac and check if <b>rvictl</b> is installed by typing </p>
+<p class="lcn"><b>rvictl -h</b></p>
+<p style="text-align:center;"><img src="../static/rvictl.png"></p>
+<p class="description"><b>4.</b> If you see something like <b>rvictl command not found</b>, you need to install
+Xcode from the App Store, launch Xcode, accept installation of additional tools and restart Terminal. </p>
+<p class="description"><b>5.</b> Once <b>rvictl</b> is installed, create a virtual interface for the iOS device
+by typing -  </p>
+<p class="lcn"><b>
+rvictl -s `echo $(system_profiler SPUSBDataType | awk '(length($NF) == 40) {print $NF}')` </b></p>
+<p style="text-align:center;"><img src="../static/udid.png"></p>
+<p class="description"><b>6.</b> If you see something like - <b>rvictl: option requires an argument -- s</b>, please
+ verify that the USB connection to the device is good and trust is established.</p>
+<p class="description"><b>7.</b> Once you get a succeeded message, verify the interface by typing - and checking if rvi0 exists.</p>
+<p class="lcn"><b>ifconfig -l</b></p>
+<p style="text-align:center;"><img src="../static/rvistatus.png"></p>
+<p class="description"><b>8.</b> We are now ready to start the capture using tcpdump. Type in terminal - </p>
+<p class="lcn"><b>sudo tcpdump -K -n -s 0 -i rvi0 -w ~/Desktop/iOScapture.pcap </b></p>
+<p class="description"><b>9.</b> Replicate the issue you want to grab traffic for. </p>
+<p class="description"><b>10.</b> Then stop the capture - <b>(CTRL + C)</b>. You should see the number of packets captured. </p>
+<p style="text-align:center;"><img src="../static/capturing.png"></p>
+<p class="description"><b>11.</b> The capture in your desktop <b>(~/Desktop/iOScapture.pcap)</b> can be viewed using Wireshark. </p>
+<br/>
+<hr>
+<p class="optns"> <b>Charles Proxy</b></p>
+<p class="description">If we want to specifically look at the contents of HTTP/HTTPS traffic, a MITM approach is the way to go.
+In this method, we install Charles Proxy on a Mac and setup a WiFi proxy on the iOS device to route all traffic through this Mac.</p>
+<br/>
+<p class="description"><b>1.</b> Install Charles Proxy on a Mac. Link <a href="https://www.charlesproxy.com/download/">here</a>. </p>
+{% endblock %}

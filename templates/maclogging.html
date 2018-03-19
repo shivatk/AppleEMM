@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Procuring logs from a Mac
+{% endblock %}
+
+{% block description %}
+<p class="description">There are several log files to look at  on a Mac depending on the type of issue we're dealing with.
+For basic activity such as mdmclient, device logs from <b>Console.app</b> is all we want.</p>
+<br/>
+<hr>
+<br/>
+<p class="optns"> <b>Console.app</b></p>
+<p class="description"><b>1.</b> Launch console on the Mac by typing Console.app under spotlight
+search or from Applications > Utilities > Console. </p>
+<p class="description"><b>2.</b> Select your machine's name from the left pane and you should see logs
+in the main window.</p>
+<br/>
+<p style="text-align:center;"><img src="../static/macconsole.png"></p>
+<br/>
+<p class="description"><b>3.</b> To filter the logs by a process, simply type its name in the search bar.</p>
+<br/>
+<p style="text-align:center;"><img src="../static/macmdmclient.png"></p>
+</br>
+<p class="suboptns"><b><u>Saving a log file</u></b></p>
+<p class="description"><b>1.</b> Replicate the issue on the device we want to grab logs for.</p>
+<p class="description"><b>2.</b> Launch Terminal and type - </p>
+<p class="lcn"><b>sudo log collect --output ~/Desktop/DeviceLogs.logarchive</b></p>
+<p class="description"><b>3.</b> To grab logs only for the last 5 mins -  </p>
+<p class="lcn"><b>sudo log collect --output ~/Desktop/DeviceLogs.logarchive --last 5m</b></p>
+<p class="description"><b>Note -</b> This will create a logarchive file in your desktop that can later
+be viewed only in the Console.app on a Mac.  </p>
+<p class="description"><b>4.</b> To save a log file in .txt or .log format, launch Console.app
+and select your machine name from the left pane.</p>
+<p class="description"><b>5.</b> Replicate the issue.</p>
+<p class="description"><b>6.</b> Select all content from the main window by a CMD + A, paste it a
+text editor of your choice and save for review.</p>
+<br/>
+ <hr>
+ <br/>
+ <p class="optns"> <b>Other useful log files - </b></p>
+<p class="suboptns"><b>system.log</b></p>
+<p class="description">For low level activity on the device such as launchd. File location - <i>/var/log/system.log</i> </p>
+<p class="suboptns"><b>install.log</b></p>
+<p class="description">For analyzing install processes i.e. the installer command, package installs etc.
+File location - <i>/var/log/install.log</i></p>
+<p class="suboptns"><b>opendirectoryd.log</b></p>
+<p class="description">For analyzing user/network account logins etc..i.e.
+File location - <i>/var/log/opendirectoryd.log</i></p>
+<br/>
+ <hr>
+ <br/>
+ <p class="optns"> <b>AirWatch Agent </b></p>
+ <p class="description">To troubleshoot issues with the AirWatch Agent such as products, custom attributes, software update
+  etc, you want to look at AirWatch specific logs under <i>/Library/Application Support/AirWatch/Data/Logs</i></p>
+<p class="description">Here's a handy command to zip the contents - </p>
+<p class="lcn"><b>sudo zip -r ~/Desktop/AWLogs.zip /Library/Application\ Support/AirWatch/Data/Logs/</b></p>
+<p class="description">Use the <b>AWLogs.zip</b> file in your desktop.</p>
+<br/>
+ <hr>
+{% endblock %}
+
+{% block subdesp %}
+{% endblock %}

@@ -1,12 +1,13 @@
 {% extends "vpp.html" %}
 
 {% block description %}
-
-Use this page to revoke licenses
 {% endblock %}
 
 {% block subdesp %}
   <div class="ps">
+
+    Upload a csv file with a column containing all Apple License IDs that need to be revoked. <br /> <br />
+
 <form action = "" method="post" enctype=multipart/form-data>
   <h5 class="text2"><b>Insert sToken String</b></h5>
   <input class="inpt" type="text" name="sToken" size="40">
@@ -20,7 +21,7 @@ Use this page to revoke licenses
       <p class = "err" >Login Failed. sToken either invalid or expired. Please download a new token and try again.</p>
     {% endif %}
   {% endwith %}
-  <h5 class="text2"><b>Upload the csv file</b></h5>
+  <h5 class="text2"><b>Upload the csv file - </b>    <a href="/download/sample">sample <a> </h5>
     <input type="file" name="file" accept=".csv"/>
     {% with messages = get_flashed_messages() %}
       {% if 'NoFile' in messages %}

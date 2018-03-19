@@ -25,6 +25,7 @@ def getAppName(adamId):
         cur.close()
         con.close()
         return Name
+    Name = Name.replace("'","")
     cur.execute("INSERT INTO AdamIds (AppName,AdamId)\
     VALUES('"+str(Name)+"','"+str(adamId)+"')")
     con.commit()

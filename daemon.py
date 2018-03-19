@@ -8,6 +8,7 @@ import jinja2
 
 pid = "/tmp/test.pid"
 
+
 def main():
     while True:
         sleep(5)

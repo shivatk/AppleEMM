@@ -1,0 +1,50 @@
+{% extends "dep.html" %}
+
+{% block subdesp %}
+
+<br />
+{% if Records %}
+<b>Total Devices : {{Count}}</b>
+<table id="resulttable">
+  <tr>
+    <th>SerialNumber</th>
+    <th>Profile Status</th>
+    <th>Profile Name</th>
+    <th>Date assigned to server</th>
+  </tr>
+{% for r in Records %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[3] }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% if Record %}
+<table id="resulttable">
+  <tr>
+    <th>SerialNumber</th>
+    <th>Model</th>
+    <th>ProfileStatus</th>
+    <th>ProfileName</th>
+    <th>ProfileAssignedDate</th>
+  </tr>
+{% for r in Record %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td>{{ r[1] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[3] }}</td>
+      <td>{{ r[4] }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}
+
+{% block return %}
+<a href="/dep">Return</a>
+{% endblock %}

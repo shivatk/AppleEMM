@@ -83,6 +83,9 @@ def getVPPLicensesBySerial(sToken,SerialNumber,batchToken,SessionKey):
             pass
     batchToken = _raw.get('batchToken')
 
+    if batchToken == None:
+        return
+
     getVPPLicensesBySerial(sToken,SerialNumber,batchToken,SessionKey)
     cur.execute("SELECT AppName FROM DeviceAppMap \
     WHERE SerialNumber = '"+SerialNumber+"' AND SessionKey ='"+str(SessionKey)+"'")

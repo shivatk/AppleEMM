@@ -3,6 +3,7 @@ from jinja2 import Template
 from logging import DEBUG
 from vppsync import SyncAssets, getVPPLicensesBySerial
 from vppsync import vpprevokelicense, vpprevoke
+from dep import getDEPSession, DEPFetch, getDeviceDetails
 import random
 import psycopg2
 import os
@@ -18,8 +19,52 @@ app.config['SECRET_KEY'] = 'alskdfnals;djfha;sd'
 def get():
     return render_template('dep.html')
 
-@app.route('/dep')
+@app.route('/dep', methods = ['GET','POST'])
 def dep():
+    if request.method == 'POST':
+
+        CK = request.form['CK']
+        CS = request.form['CS']
+        AT = request.form['T']
+        AS = request.form['TS']
+        SerialNumber = request.form['SerialNumber']
+        if CK != '' and CS != '' and AT != '' and AS != '' and SerialNumber == '':
+            DEPToken = {"CK":CK,"CS":CS,"AT":AT,"AS":AS}
+            SessionKey = random.randint(0,5000000)
+            flash(SessionKey)
+
+            Records = DEPFetch(SessionKey,DEPToken,'')
+            if Records == 'Invalid':
+                flash('invalid')
+                return render_template('dep.html')
+            if Records == 'Token Expired':
+                flash('expired')
+                return render_template('dep.html')
+            Count = len(Records)
+            return render_template('deprecords.html',Records=Records,Count=Count)
+        if CK == '' or CS == '' or AT == '' or AS == '' and SerialNumber == '':
+            flash('notcomplete')
+            return render_template ('dep.html')
+        if CK == '' or CS == '' or AT == '' or AS == '' and SerialNumber != '':
+            flash('notcomplete')
+            return render_template ('dep.html')
+        if CK != '' and CS != '' and AT != '' and AS != '' and SerialNumber != '':
+            DEPToken = {"CK":CK,"CS":CS,"AT":AT,"AS":AS}
+            SessionKey = random.randint(0,5000000)
+            flash(SessionKey)
+            Record = getDeviceDetails(SessionKey,SerialNumber,DEPToken)
+            if Record == 'Invalid':
+                flash('invalid')
+                return render_template('dep.html')
+            if Record == 'Token Expired':
+                flash('expired')
+                return render_template('dep.html')
+            if Record == 'Null':
+                flash('nodevice')
+                return render_template('dep.html')
+            return render_template('deprecords.html',Record=Record)
+
+
     return render_template('dep.html')
 
 @app.route('/vpp', methods = ['GET','POST'])
@@ -86,6 +131,28 @@ def DownloadLogFile(file):
         return send_file(destination,as_attachment=True)
     except Exception as e:
         return render_template('vpprevoke.html')
+
+@app.route("/download/sample")
+def DownloadSample():
+    try:
+        filename = 'sample.csv'
+        target = os.path.join(APP_ROOT, 'licensefiles/')
+        destination = "/".join([target, filename])
+        return send_file(destination,as_attachment=True)
+    except Exception as e:
+        return render_template('vpprevoke.html')
+
+@app.route("/ioslogging")
+def ioslogging():
+    return render_template('ioslogging.html')
+
+@app.route("/macoslogging")
+def macoslogging():
+    return render_template('maclogging.html')
+
+@app.route('/iostraffic')
+def iostraffic():
+    return render_template('iostraffic.html')
 
 if __name__ == '__main__':
     main()

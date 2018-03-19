@@ -5,14 +5,16 @@ Volume Purchase Program
 {% endblock %}
 
 {% block description %}
-<p class="description">In iOS 7 and later or macOS v10.9 and later, Volume Purchase Program (VPP) App Assignment allows an organization to assign apps to users. At a later date, if a user no longer needs an app, you can reclaim the app license and assign it to a different user. In iOS 9 and later or macOS v10.11 and later, VPP can assign a license to the device serial number, so no Apple ID is required to download the app.</p>
+<p class="description">The sToken is base 64 encoded string containing information about the VPP account. Grab the sToken from the MDM server. Optionally,
+enter a device serial number to pull all apps assigned to it.</p>
+<p class="description">Information on this API <a href="https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/MobileDeviceManagementProtocolRef/5-Web_Service_Protocol_VPP/webservice.html">here.</a></p>
 {% endblock %}
 
 {% block subdesp %}
 <div>
 </div>
   <div class="ps">
-<form action = "" method="post">
+<form action = "/vpp" method="post">
   <h5 class="text2"><b>Insert sToken String to retrieve all associated apps and license information</b></h5>
   <input class="inpt" type="text" name="sToken" size="40">
   {% with messages = get_flashed_messages() %}

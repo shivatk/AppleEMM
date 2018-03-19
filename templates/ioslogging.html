@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}
+Procuring logs from an iOS device
+{% endblock %}
+
+{% block description %}
+<p class="description">In troubleshooting most issues, it is becomes necessary to look at device side logging
+ for diagnosing the problem. There are several approaches to grab device side logging based on available
+equipment and scenarios.</p>
+ <br/>
+ <p class="description"><b>- </b><a href='#fromMac'>I have access to a Mac and can connect my iOS device to it. (Preferred)</a></p>
+ <p class="description"><b>- </b><a href='#windows'>I have access to a Windows PC and can connect my iOS device to it.</a></p>
+ <p class="description"><b>- </b><a href='#sysdiagnose'>I don't have immediate access to a
+   Mac or PC <b>OR</b> USB access/device pairing is restricted.</a></p>
+ <p class="description"><b>- </b><a href='#cfgutil'>I want to grab logs for an extended period of time
+ or through a power cycle/reset.</a></p>
+
+ <br/>
+ <hr>
+{% endblock %}
+
+{% block subdesp %}
+<section id='fromMac'>
+  <br/><br/>
+<p class="optns"> <b>With a Mac</b></p>
+<p class="description">Apple's recommended method for procuring logs from an iOS device is by using either
+  the native console app on macOS 10.12+ or Apple Configurator on machines running macOS 10.11 and prior.</p>
+<p class="suboptns"><b><u>Method 1 - Using Console.app | macOS 10.12+</u></b></p>
+<p class="description"><b>1.</b> Using a lightning cable, connect the iOS device to the Mac via the USB port. </p>
+<p class="description"><b>2.</b> Accept the prompt for trusting the Mac on the device. </p>
+<p style="text-align:center;"><img src="../static/truster.jpg"></p>
+<p class="description"><b>3.</b> Launch console on the Mac by typing Console.app under spotlight
+search or from Applications > Utilities > Console. </p>
+<p class="description"><b>4.</b> If there are no issues with the USB connection, you should see the device
+listed in left hand pane. Click on it and logs will start populating in the main window. </p>
+<br />
+<p style="text-align:center;"><img src="../static/cons.png"></p>
+<p class="description"><b>5.</b> Replicate the issue on the device we want to grab logs for. </p>
+<p class="description"><b>6.</b> Click inside the main logging window in Console and copy all content
+by holding CMD + A. </p>
+<p class="description"><b>7.</b> Paste the content in a text editor of choice and save the file for review. </p>
+<br/>
+<hr>
+<p class="suboptns"><b><u>Method 2 - Using Apple Configurator</u></b></p>
+<p class="description">In macOS 10.11 and prior versions, the native console app cannot
+be used to grab iOS logs. Either Apple Configurator or Xcode can be used, Apple Configurator being the easiest
+since its lighter. </p>
+<p class="description"><b>1.</b> Ensure iTunes is upto date and install <a href='https://itunes.apple.com/us/app/apple-configurator-2/id1037126344?mt=12'>
+  Apple Configurator 2</a> from the App Store. </p>
+<br/>
+<p style="text-align:center;"><img src="../static/AC2.png"></p>
+<p class="description"><b>2.</b> Once installed, launch the app. </p>
+<p class="description"><b>3.</b> Using a lightning cable, connect the iOS device to the Mac via the USB port
+and accept the prompt for trust. </p>
+<p class="description"><b>4.</b> Apple Configurator should recognize the connected device as shown below. </p>
+<br/>
+<p style="text-align:center;"><img src="../static/ACDetails.png"></p>
+<p class="description"><b>5.</b> Double click on the device and select <b>Console</b> from the left pane.
+Logs should start populating in the main window.</p>
+<br/>
+<p style="text-align:center;"><img src="../static/ACLogs.png"></p>
+<p class="description"><b>6.</b> Replicate the issue on the device we want to grab logs for. </p>
+<p class="description"><b>7.</b> Hit Save on the bottom right for review later. </p>
+<br/>
+<hr>
+</section>
+<section id='windows'>
+  <br/><br/>
+  <p class="optns"> <b>With a Windows PC</b></p>
+  <p class="description">Windows does not a native app/tool that helps with grabbing logs from iOS.
+  There are third party apps that can help. Blackberry has a tool called <a href="http://support.blackberry.com/kb/articleDetail?articleNumber=000036986">iOSLogInfo</a> that can be used
+for log collection from the command line. Another popular method is using <a href="https://www.thinkskysoft.com/">iTools</a> (GUI app by ThinkSkySoft).  </p>
+  <p class="suboptns"><b><u>Method 1 - Using iOSLogInfo</u></b></p>
+  <p class="description"><b>1.</b> Download the iOSLogInfo zip from <a href="https://www.blackberry.com/blackberrytraining/web/KB_Resources/KB36986_iOSLogInfo_4.3.4.zip">here<a>. </p>
+  <p class="description"><b>2.</b> Extract the contents of the zip into a folder on the PC. (Desktop\iOSLogInfo for example). The contents are a bunch of dll and exe files. </p>
+  <p class="description"><b>3.</b> Using a lightning cable, connect the iOS device to the PC via the USB port
+    and accept the prompt for trust. </p>
+  <p style="text-align:center;"><img src="../static/truster.jpg"></p>
+  <p class="description"><b>4.</b> Open Command Prompt on the PC and navigate to the folder where zip file was extracted. </p>
+  <p class="description"><b>5.</b> Typing <b><i>sdsiosloginfo.exe -d</i></b> will start populating logs in the cmd window.
+  To redirect all output to a text file - </p>
+    <p class="lcn"><b><i>sdsiosloginfo.exe -d > DeviceLog.log</i></b></p>
+  <p class="description"><b>6.</b> If you see one of the error messages below, ensure the USB connection is good and
+  trust to the PC has been established. </p>
+  <p style="text-align:center;"><img src="../static/iOSLogInfo.png"></p>
+  <p style="text-align:center;"><img src="../static/notruster.png"></p>
+  <p class="description"><b>7.</b> If you don't see any error messages, it means log collection has started. </p>
+  <p class="description"><b>8.</b> Replicate the issue we want to grab logs for (Note the timestamp). </p>
+  <p class="description"><b>9.</b> The <b>DeviceLog.log</b> file should have device's log output. </p>
+  <br/>
+  <hr>
+  <p class="suboptns"><b><u>Method 2 - Using iTools</u></b></p>
+  <p class="description"><b>1.</b> Install iTools on your PC from <a href="https://www.thinkskysoft.com/">here</a>. </p>
+  <p style="text-align:center;"><img src="../static/iTools.png"></p>
+  <br/>
+  <p class="description"><b>2.</b> Launch the app. </p>
+  <p class="description"><b>3.</b> Using a lightning cable, connect the iOS device to the PC via the USB port
+    and accept the prompt for trust.</p>
+  <p class="description"><b>2.</b> iTools should recognize the device. </p>
+  <br/>
+  <p style="text-align:center;"><img src="../static/iToolsWindow.png"></p>
+  <p class="description"><b>4.</b> Select the <b>Toolbox</b> option from the top and hit <b>Console Log</b>. </p>
+  <p style="text-align:center;"><img src="../static/iToolsToolbox.png"></p>
+  <p class="description"><b>5.</b> Logs should start populating as shown. </p>
+  <p style="text-align:center;"><img src="../static/iToolsConsole.png"></p>
+  <p class="description"><b>6.</b> Replicate the issue we want to grab logs for (Note the timestamp). </p>
+  <p class="description"><b>7.</b> Hit <b>Save Full Log</b> to write to file (Note: The trial version only allows three saves.
+    After that, you can simply copy contents from the window and paste it to a text file). </p>
+    <br/>
+    <hr>
+</section>
+<section id='sysdiagnose'>
+  <br/><br/>
+  <p class="optns"> <b>No access to a Mac/PC</b></p>
+  <p class="description">If the iOS device cannot be connected to a computer because there isn't one
+  around or if USB access has been restricted, iOS offers an inbuilt log collecting functionality called a sysdiagnose.
+A sysdiagnose will have as much information as logs collected through any other methods.</p>
+  <p class="suboptns"><b><u>To grab a sysdiagnose</u></b></p>
+  <p class="description"><b>1.</b> Replicate the issue we want to grab logs for (Note the timestamp). </p>
+  <p class="description"><b>2.</b> Trigger a sysdiagnose on the device by simultaneously pressing and
+  releasing both volume buttons and Side (or Top) button. Apple documentation <a href='https://developer.apple.com/bug-reporting/profiles-and-logs/'>here</a>.</p>
+  <p class="description"><b>3.</b> On an iPhone, you'd feel a short vibration. No indications for iPads.</p>
+  <p class="description"><b>4.</b> Wait ~5 mins for log collection to complete.</p>
+  <p class="description"><b>5.</b> Then, on the device, navigate to Settings > Privacy > Analytics > Analytics Data. </p>
+  <p class="description"><b>6.</b> Scroll to the bottom where you see a sysdiagnose entry (like shown below).</p>
+  <br/>
+  <p style="text-align:center;"><img src="../static/sysdiagnose1.jpg"></p>
+  <p class="description"><b>7.</b> If you don't see a sysdiagnose entry after ~10 mins, please repeat the process.</p>
+  <p class="description"><b>8.</b> Select the newly created sysdiagnose entry and upload into any file sharing
+  application on the device like Google Drive or Dropbox which can
+  be later downloaded for review or alternatively, AirDrop the file to a Mac. (Note: the size is usually approx. 100 MB)</p>
+  <br/>
+  <p style="text-align:center;"><img src="../static/sysdiagnose3.jpg"></p>
+  <p class="description"><b>9.</b> This sysdiagnose is a tape archived file (.tar.gz). Download and expand
+  the file on a Mac. </p>
+  <p class="description"><b>10.</b> Inside the archive, <b><u>system_logs.logarchive</u></b> is the log file
+    we want to look at. (Note: This
+    file can only be opened in the Console.app on a Mac).</p>
+  <br/>
+  <p style="text-align:center;"><img src="../static/systemlogs.png"></p>
+  <br/>
+  <p class="suboptns"><b><u>Additionally, if required - </u></b></p>
+  <p class="description"><b>11.</b> A sysdiagnose on a device will be stored for a short period of time
+  which can then, if required, be ported over to a Mac/PC via an <a href="https://support.apple.com/en-us/HT201253">iTunes sync</a>.</p>
+  <p class="description"><b>12.</b> Location of the sysdiagnose file on the computer
+  after an <a href="https://support.apple.com/en-us/HT201253">iTunes sync</a>.</p>
+  <p class="description"><b>On a Mac -</b> </p>
+  <p class="lcn">~/Library/Logs/CrashReporter/MobileDevice/[Your_Device_Name]/DiagnosticLogs/sysdiagnose</p>
+  <p class="description"><b>On a PC -</b> </p>
+  <p class="lcn">C:\Users\[Your_User_Name]\AppData\Roaming\Apple Computer\Logs\CrashReporter\MobileDevice\[Your_Device_Name]\DiagnosticLogs\sysdiagnose</p>
+  <p class="description"><b>13.</b> In some cases, support teams may require the entire Sysdiagnose archive
+    that contains other relevant log files but in most cases, the <b><u>system_logs.logarchive</u></b> will
+    provide more than enough info .</p>
+  <br/>
+  <hr>
+</section>
+<section id='cfgutil'>
+  <br/><br/>
+  <p class="optns"> <b>cfgutil</b></p>
+  <p class="description">There are edge cases where an issue occurs intermittently or only when the device
+    is left idle for hours. Also, there may be situations where we need to grab logs through a software update
+  or a power cycle. In cases like these, using conventional methods are not viable as the connection
+will be lost during the reboot or logs may simply get overwritten over a threshold. For these cases,
+Apple Configurator's CLI tool <b><i>cfgutil</i></b> can be used.</p>
+<p class="suboptns"><b><u>Usage</u></b></p>
+<p class="description"><b>1.</b> On a Mac, install Apple Configurator from the App Store. </p>
+<p class="description"><b>2.</b> Launch the app. Hit Apple Configurator 2 in the menu bar
+and select <b>Install Automation Tools</b>. Enter your admin password when prompted. </p>
+<p style="text-align:center;"><img src="../static/cfgutil.png"></p>
+<p class="description"><b>3.</b> This should install a command line tool called cfgutil. </p>
+<p class="description"><b>4.</b> Using a lightning cable, connect the iOS device to the Mac via the USB port
+  and accept the prompt for trust. </p>
+<p class="description"><b>5.</b> On the Mac, launch Terminal from Applications > Utilities > Terminal. </p>
+<p class="description"><b>6.</b> Type in <b><i>cfgutil list</i></b>. If there are no issues with cfgutil installation
+or the USB connection, you should see the device recognized.</p>
+<p style="text-align:center;"><img src="../static/cli.png"></p>
+<p class="description"><b>7.</b> Type in <b><i>cfgutil syslog</i></b> and logs will start populating in Terminal. To redirect output
+to a text file, simply type -  </p>
+    <p class="lcn"><b><i>cfgutil syslog> ~/Desktop/Devicelog.log</i></b></p>
+  <p style="text-align:center;"><img src="../static/clilog.png"></p>
+<p class="description"><b>8.</b> The Devicelog.log created in your desktop can be used for review. </p>
+<p class="description"><b>9.</b> There are several other uses for cfgutil for automation. Check cfgutil man page for more details. </p>
+    <p class="lcn"><b><i>man cfgutil</i></b></p>
+  <p class="description"> The advantages with this approach is that, logging will be not lost with USB connection
+  termination during a device restart/upgrade. Once the device is up, logging will resume. This approch
+can be used to save logs for hours on end. </p>
+    <br/>
+    <hr>
+</section>
+
+{% endblock %}
