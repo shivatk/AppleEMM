@@ -1,1 +1,1 @@
-Apple MDM API Helper
+Apple MDM API Helper for DEP and VPP
