@@ -40,7 +40,7 @@ to obtain its status with DEP.</p>
   <input class="inpt" type="text" name="SerialNumber" size="40">
 
  <br /><br /> <br />
-  <button class="subbuttn" type="submit" name="submit" value="submit"> Get Data </button>
+  <button class="subbuttn" id="sb" type="submit" name="submit" id="sb" value="submit"> Get Data </button>
   {% with messages = get_flashed_messages() %}
     {% if 'nodevice' in messages %}
       <p class = "err" >This device is not tied to the account.</p>

@@ -26,10 +26,10 @@ def getDEPSession(DEPToken):
 
 
 def getDEPProfileName(uuid, Token, DEPToken):
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '8989'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect(
         host=hostname, user=username, password=password, dbname=database
     )
@@ -69,10 +69,10 @@ def getDEPProfileName(uuid, Token, DEPToken):
 
 def DEPFetch(SessionKey, DEPToken, Cursor):
     cursor = Cursor
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '8989'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect(
         host=hostname, user=username, password=password, dbname=database
     )
@@ -145,10 +145,10 @@ def DEPFetch(SessionKey, DEPToken, Cursor):
 
 
 def getDeviceDetails(SessionKey, SerialNumber, DEPToken):
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '8989'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect(
         host=hostname, user=username, password=password, dbname=database
     )

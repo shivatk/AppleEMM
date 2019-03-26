@@ -12,10 +12,10 @@ password = '8989'
 database = 'FirstDriver'
 
 def SyncAssets(sToken,SessionKey):
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '8989'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
     cur = con.cursor()
     URL = 'https://vpp.itunes.apple.com/WebObjects/MZFinance.woa/wa/getVPPAssetsSrv'
@@ -48,10 +48,10 @@ def SyncAssets(sToken,SessionKey):
     return rows
 
 def getVPPLicensesBySerial(sToken,SerialNumber,batchToken,SessionKey):
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '8989'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
     cur = con.cursor()
 

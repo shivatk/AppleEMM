@@ -3,10 +3,10 @@ import requests
 import psycopg2
 
 def getAppName(adamId):
-    hostname = 'localhost'
-    username = 'shivatk'
-    password = '****'
-    database = 'FirstDriver'
+    hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
+    username = 'firstdriver'
+    password = 'firstdriver'
+    database = 'firstdriver'
     con = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
     cur = con.cursor()
     cur.execute("SELECT AppName FROM AdamIDs \

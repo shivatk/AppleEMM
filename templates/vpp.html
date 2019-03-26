@@ -32,7 +32,7 @@ enter a device serial number to pull all apps assigned to it.</p>
   <input class="inpt" type="text" name="SerialNumber" size="40">
 
  <br /><br /> <br />
-  <button class="subbuttn" type="submit" name="submit" value="submit"> Get Data </button>
+  <button class="subbuttn" type="submit" name="submit" value="submit" id="sb"> Get Data </button>
   {% with messages = get_flashed_messages() %}
     {% if 'NoAppsAssigned' in messages %}
       <p class = "err" >There are no applications assigned to this device.</p>

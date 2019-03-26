@@ -97,7 +97,7 @@ def vpp():
     return render_template('vpp.html')
 
 def main():
-    app.run()
+    app.run(host='0.0.0.0',port=80)
 
 @app.route('/revoke', methods=['GET','POST'])
 def revoke():

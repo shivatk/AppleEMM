@@ -1,6 +1,6 @@
 import psycopg2
 
-hostname = 'localhost'
+hostname = 'appleemm.cyob1f1ueydk.us-east-1.rds.amazonaws.com'
 username = 'shivatk'
 password = 'shivatk'
 database = 'shivatk'

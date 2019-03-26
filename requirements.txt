@@ -1,0 +1,5 @@
+requests
+requests_oauthlib
+psycopg2
+flask
+jinja2
